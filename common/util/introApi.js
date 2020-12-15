@@ -1,4 +1,4 @@
-import fetchData from "./index";
+import fetchData from "./fetchData";
 import axios from "axios";
 
 const BASE_URL = "https://api.themoviedb.org/3/";
@@ -17,11 +17,16 @@ export default async function introApi() {
 
   const response = await fetchData(`${id}`);
   const introMovie = response.data;
+  if (introMovie.tagline === "") {
+    introApi();
+    return;
+  }
   let randomMivie = {
     backdropPath: `${IMG_PATH}${introMovie.backdrop_path}`,
     title: introMovie.title,
     tagline: introMovie.tagline,
     id: introMovie.id,
+    poster_path: `${IMG_PATH}${introMovie.poster_path}`,
   };
 
   return randomMivie;

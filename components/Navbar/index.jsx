@@ -1,118 +1,162 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import { useMediaQuery } from "react-responsive";
+import styled from "styled-components";
 import Link from "next/link";
+
+import theme from "../../styles/media";
 import DehazeIcon from "@material-ui/icons/Dehaze";
 import CloseIcon from "@material-ui/icons/Close";
-const Navbal = () => {
-  // const [wWidth, setWWidth] = useState(window.innerWidth);
+
+const Navbal = ({ isColor }) => {
   const [isOpen, setIsOpen] = useState(false);
-  // console.log("width", wWidth);
+  const onModea = useMediaQuery({
+    query: theme.tablet,
+  });
   return (
-    <Nav>
+    <Nav isOpen={isOpen} isColor={isColor}>
       <UL>
         <LI>
           <Link href="/">
-            <a>홈</a>
+            <h1>
+              <a>HOME</a>
+            </h1>
           </Link>
         </LI>
-        <LI>
-          {isOpen ? (
-            <CloseIcon
-              onClick={() => {
-                setIsOpen((v) => !v);
-              }}
-            />
-          ) : (
-            <Hmenu
-              onClick={() => {
-                setIsOpen((v) => !v);
-              }}
-            >
-              <DehazeIcon />
-            </Hmenu>
-          )}
-        </LI>
-        {isOpen && (
-          <Navbox isOpen={isOpen}>
-            <ul>
+        {onModea ? (
+          <LI>
+            <SubUL>
               <li>
-                <Link href="#">
-                  <a>리스트</a>
+                <Link href="/">
+                  <a>영화리스트</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
-                  <a>리스트</a>
+                <Link href="/">
+                  <a>좋아요리스트</a>
                 </Link>
               </li>
               <li>
-                <Link href="#">
-                  <a>리스트</a>
+                <Link href="/">
+                  <a>소개</a>
                 </Link>
               </li>
-            </ul>
-          </Navbox>
+            </SubUL>
+          </LI>
+        ) : (
+          <LI>
+            {isOpen ? (
+              <CloseIcon
+                style={{ color: "#000", zIndex: 5 }}
+                onClick={() => {
+                  setIsOpen((v) => !v);
+                }}
+              />
+            ) : (
+              <DehazeIcon
+                onClick={() => {
+                  setIsOpen((v) => !v);
+                }}
+              />
+            )}
+          </LI>
         )}
       </UL>
+      {!onModea && (
+        <Navbox
+          isOpen={isOpen}
+          onClick={() => {
+            setIsOpen(false);
+          }}
+        >
+          <ul>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+          </ul>
+        </Navbox>
+      )}
     </Nav>
   );
 };
 export default Navbal;
 const Nav = styled.nav`
-  position: relative;
+  position: fixed;
+  z-index: 2;
+  width: 100%;
+  color: #fff;
+  background: ${(props) => (props.isColor ? "rgba(0, 0, 0, 0.164)" : "none")};
+  h1 {
+    cursor: pointer;
+  }
+  @media ${(props) => props.theme.tablet} {
+    li {
+      a {
+        font-size: 20px;
+      }
+    }
+  }
+  @media ${(props) => props.theme.desktop} {
+    width: 1180px;
+    li {
+      a {
+        font-size: 20px;
+        font-weight: 700;
+      }
+    }
+  }
 `;
 const UL = styled.ul`
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: 50px;
-  background: #fff;
+  height: 60px;
   padding: 0 15px;
   position: relative;
+  z-index: 2;
+  @media ${(props) => props.theme.desktop} {
+    width: 1180px;
+  }
+`;
+const SubUL = styled.ul`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 15px;
+  z-index: 2;
+  li {
+    margin-left: 30px;
+  }
 `;
 const LI = styled.li``;
-const Hmenu = styled.button`
-  border: none;
-  background: none;
-`;
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
-
-const fadeOut = keyframes`
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-`;
 const Navbox = styled.div`
   position: absolute;
-  top: 50px;
+  top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(46, 46, 46, 0.356);
-  display: block;
-  z-index: 1;
+  background: rgba(46, 46, 46, 0.596);
   opacity: ${(props) => (props.isOpen ? "1" : "0")};
   display: ${(props) => (props.isOpen ? "block" : "none")};
   ul {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
     height: 100%;
+    background: #fff;
+    border-radius: 10px 0 0 10px;
+    padding: 40px 30px;
+    li {
+      background: #333;
+      margin-top: 10px;
+    }
   }
-  li {
-    padding: 10px 20px;
-    border-bottom: 1px solid #333;
+
+  @media ${(props) => props.theme.tablet} {
+    display: none;
   }
 `;

@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import Navbal from "../Navbar";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, isColor }) => {
   return (
     <Container>
       <Wrap>
-        <Navbal />
+        <Navbal isColor={isColor} />
         {children}
       </Wrap>
     </Container>
@@ -19,8 +19,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-  height: 100vh;
   min-width: 320px;
 `;
 const Wrap = styled.div`
@@ -30,13 +28,13 @@ const Wrap = styled.div`
   height: 100vh;
   position: relative;
   @media ${(props) => props.theme.mobile} {
-    background: #ff7272;
+    background: none;
   }
   @media ${(props) => props.theme.tablet} {
-    background: #333;
+    background: none;
   }
   @media ${(props) => props.theme.desktop} {
-    background: #999;
+    background: none;
     width: 1180px;
   }
 `;
