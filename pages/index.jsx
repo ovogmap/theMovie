@@ -20,7 +20,7 @@ const Home = ({ data }) => {
       <Head>
         <title>Movie</title>
       </Head>
-      <Layout>
+      <Layout isMobile={onMedia}>
         <Container>
           <ImgBox URL={data?.backdropPath}>
             {!onMedia && <Poster src={`${data.poster_path}`} />}

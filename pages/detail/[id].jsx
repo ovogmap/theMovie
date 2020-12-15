@@ -147,10 +147,23 @@ const SimilarBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 const SimilarTitle = styled.h5`
-  font-size: 20px;
+  font-size: 14px;
   padding-top: 20px;
+  display: inline-block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  @media ${(props) => props.theme.tablet} {
+    font-size: 16px;
+  }
+  @media ${(props) => props.theme.desktop} {
+    font-size: 20px;
+  }
 `;
 
 const VideosContainer = styled.div`
@@ -213,19 +226,19 @@ const CastsName = styled.h5`
   font-size: 12px;
   padding: 20px 0 10px;
   @media ${(props) => props.theme.tablet} {
-    font-size: 16px;
+    font-size: 12px;
   }
   @media ${(props) => props.theme.desktop} {
-    font-size: 18px;
+    font-size: 16px;
   }
 `;
 const CastsCha = styled.p`
   font-size: 10px;
   @media ${(props) => props.theme.tablet} {
-    font-size: 14px;
+    font-size: 10px;
   }
   @media ${(props) => props.theme.desktop} {
-    font-size: 16px;
+    font-size: 14px;
   }
 `;
 
@@ -268,10 +281,6 @@ const Bg = styled.div`
   width: 100%;
   height: 400px;
   background: ${(props) => `center / cover no-repeat url(${props.URL})`};
-  @media ${(props) => props.theme.mobile} {
-  }
-  @media ${(props) => props.theme.tablet} {
-  }
   @media ${(props) => props.theme.desktop} {
     height: 500px;
   }
@@ -282,12 +291,14 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
   @media ${(props) => props.theme.tablet} {
     h4 {
       font-size: 30px;
     }
   }
   @media ${(props) => props.theme.desktop} {
+    width: 1180px;
     h4 {
       margin-top: 30px;
       font-size: 30px;

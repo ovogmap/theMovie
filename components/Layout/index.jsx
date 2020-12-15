@@ -1,17 +1,17 @@
-import Head from "next/Head";
 import React from "react";
 import styled from "styled-components";
 import Navbal from "../Navbar";
 import Footer from "../Footer";
 
-const Layout = ({ children, isColor }) => {
+const Layout = ({ children, isColor, isMobile }) => {
+  console.log(isMobile);
   return (
     <>
       <Container>
         <Wrap>
           <Navbal isColor={isColor} />
-          <main>{children}</main>
-          <Footer />
+          {children}
+          {isMobile && <Footer />}
         </Wrap>
       </Container>
     </>
@@ -33,4 +33,8 @@ const Wrap = styled.div`
   width: 100vw;
   height: 100vh;
   position: relative;
+  @media ${(props) => props.theme.desktop} {
+    background: none;
+    /* width: 1180px; */
+  }
 `;

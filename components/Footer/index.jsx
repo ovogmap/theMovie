@@ -4,17 +4,22 @@ import styled from "styled-components";
 import GitHubIcon from "@material-ui/icons/GitHub";
 const Footer = () => {
   return (
-    <footer>
+    <Box>
       <a href="https://github.com/ovogmap/theMovie" target="_blank">
         <Container>
           <GitHubIcon />
           <Title>Copyright © 2020 All rights ovogmap.</Title>
         </Container>
       </a>
-    </footer>
+    </Box>
   );
 };
 export default Footer;
+
+const Box = styled.footer`
+  position: fixed;
+  bottom: 0;
+`;
 
 const Title = styled.p``;
 
