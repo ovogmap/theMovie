@@ -20,22 +20,23 @@ const Home = ({ data }) => {
       <Head>
         <title>Movie</title>
       </Head>
-      <Layout />
-      <Container>
-        <ImgBox URL={data?.backdropPath}>
-          {!onMedia && <Poster src={`${data.poster_path}`} />}
-          <TextBox>
-            <Text title={data}>{data?.title}</Text>
-            <Text>{data?.tagline}</Text>
-            <Join>
-              <Link href="/detail/[id]" as={`/detail/${data.id}`}>
-                <a>보러가기</a>
-              </Link>
-              <TrendingFlatIcon />
-            </Join>
-          </TextBox>
-        </ImgBox>
-      </Container>
+      <Layout>
+        <Container>
+          <ImgBox URL={data?.backdropPath}>
+            {!onMedia && <Poster src={`${data.poster_path}`} />}
+            <TextBox>
+              <Text title={data}>{data?.title}</Text>
+              <Text>{data?.tagline}</Text>
+              <Join>
+                <Link href="/detail/[id]" as={`/detail/${data.id}`}>
+                  <a>보러가기</a>
+                </Link>
+                <TrendingFlatIcon />
+              </Join>
+            </TextBox>
+          </ImgBox>
+        </Container>
+      </Layout>
     </>
   );
 };

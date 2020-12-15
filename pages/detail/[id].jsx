@@ -79,17 +79,19 @@ const Detail = ({ data }) => {
             <h4>비슷한 영화들</h4>
             <SimilarContainer>
               {data.similars.length === 0 && <p>비슷한 영화가 없습니다..</p>}
-              {data.similars.map((item, i) => {
+              {data.similars.map((item) => {
                 return (
                   <Link
                     key={item.id}
                     href="/detail/[id]"
                     as={`/detail/${item.id}`}
                   >
-                    <SimilarBox>
-                      <Similaritem src={`${item.poster_path}`} alt="포스터" />
-                      <SimilarTitle>{item.title}</SimilarTitle>
-                    </SimilarBox>
+                    <a>
+                      <SimilarBox>
+                        <Similaritem src={`${item.poster_path}`} alt="포스터" />
+                        <SimilarTitle>{item.title}</SimilarTitle>
+                      </SimilarBox>
+                    </a>
                   </Link>
                 );
               })}
@@ -146,8 +148,8 @@ const SimilarBox = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const SimilarTitle = styled.h4`
-  font-size: 14px;
+const SimilarTitle = styled.h5`
+  font-size: 20px;
   padding-top: 20px;
 `;
 
