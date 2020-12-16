@@ -17,7 +17,7 @@ const Footer = () => {
 export default Footer;
 
 const Box = styled.footer`
-  position: fixed;
+  position: absolute;
   bottom: 0;
 `;
 

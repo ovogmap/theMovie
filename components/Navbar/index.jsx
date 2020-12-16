@@ -26,17 +26,22 @@ const Navbal = ({ isColor }) => {
           <LI>
             <SubUL>
               <li>
-                <Link href="/">
+                <Link href="/list">
                   <a>영화리스트</a>
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/like">
                   <a>좋아요리스트</a>
                 </Link>
               </li>
               <li>
-                <Link href="/">
+                <Link href="/search">
+                  <a>검색</a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/about">
                   <a>소개</a>
                 </Link>
               </li>
@@ -69,10 +74,26 @@ const Navbal = ({ isColor }) => {
           }}
         >
           <ul>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
+            <li>
+              <Link href="/list">
+                <a>영화리스트</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/like">
+                <a>좋아요리스트</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/search">
+                <a>검색</a>
+              </Link>
+            </li>
+            <li>
+              <Link href="/about">
+                <a>소개</a>
+              </Link>
+            </li>
           </ul>
         </Navbox>
       )}
@@ -151,8 +172,8 @@ const Navbox = styled.div`
     border-radius: 10px 0 0 10px;
     padding: 40px 30px;
     li {
-      background: #333;
       margin-top: 10px;
+      color: #333;
     }
   }
 

@@ -17,10 +17,10 @@ export default async function introApi() {
 
   const response = await fetchData(`${id}`);
   const introMovie = response.data;
-  if (introMovie.tagline === "") {
-    introApi();
-    return;
-  }
+  // if (introMovie.tagline === "") {
+  //   introApi();
+  //   return;
+  // }
   let randomMivie = {
     backdropPath: `${IMG_PATH}${introMovie.backdrop_path}`,
     title: introMovie.title,

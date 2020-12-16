@@ -1,16 +1,20 @@
 import styled from "styled-components";
 import Link from "next/link";
-export default function Error404() {
+export default function Error404({ setErr }) {
   return (
     <Container>
       <ContentBox>
-        {/* <Img src={Sorry} /> */}
         <Title>404 ERROR</Title>
         <Text>
           The page you looking for might have been removed had its name change
           or is temporarily unavailable
         </Text>
-        <Link href="/">
+        <Link
+          href="/"
+          onClick={() => {
+            setErr((v) => !v);
+          }}
+        >
           <A>홈페이지로 돌아가기</A>
         </Link>
       </ContentBox>

@@ -1,34 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 import Link from "next/link";
 import Head from "next/Head";
 
+import ErrorPage from "./404";
 import Layout from "../components/Layout";
+import Spinner from "../components/Spinner";
 
+import { onLoading, getData, onError } from "../common/modules/home";
 import theme from "../styles/media";
 import introApi from "../common/util/introApi";
 import TrendingFlatIcon from "@material-ui/icons/TrendingFlat";
+import { useDispatch, useSelector } from "react-redux";
 
-const Home = ({ data }) => {
-  console.log(data);
+const Home = () => {
+  const [err, setErr] = useState(false);
+  const { loading, erorr, result } = useSelector((store) => store.Home);
+  const dispatch = useDispatch();
+  console.log("result", result);
   const onMedia = useMediaQuery({
     query: theme.tablet,
   });
+  const fetchData = async () => {
+    dispatch(onLoading());
+    try {
+      const data = await introApi();
+      dispatch(getData(data));
+    } catch (e) {
+      dispatch(onError(e));
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  if (loading) return <Spinner size={50} color="#645df6" />;
+  if (erorr || result === undefined) return <ErrorPage setErr={setErr} />;
   return (
     <>
       <Head>
         <title>Movie</title>
       </Head>
-      <Layout isMobile={onMedia}>
+      <Layout isMobile={false}>
         <Container>
-          <ImgBox URL={data?.backdropPath}>
-            {!onMedia && <Poster src={`${data.poster_path}`} />}
+          <ImgBox URL={result?.backdropPath}>
+            {!onMedia && <Poster src={`${result?.poster_path}`} />}
             <TextBox>
-              <Text title={data}>{data?.title}</Text>
-              <Text>{data?.tagline}</Text>
+              <Text title={result}>{result?.title}</Text>
+              <Text>{result.tagline || "오늘의 추천영화"}</Text>
               <Join>
-                <Link href="/detail/[id]" as={`/detail/${data.id}`}>
+                <Link href="/detail/[id]" as={`/detail/${result?.id}`}>
                   <a>보러가기</a>
                 </Link>
                 <TrendingFlatIcon />
@@ -41,20 +62,6 @@ const Home = ({ data }) => {
   );
 };
 export default Home;
-
-export async function getStaticProps() {
-  const data = await introApi();
-  if (!data) {
-    return {
-      notFound: true,
-    };
-  }
-  return {
-    props: {
-      data: data,
-    },
-  };
-}
 
 const Poster = styled.img`
   width: 180px;
@@ -139,12 +146,9 @@ const Container = styled.div`
   width: 100%;
   height: 100vh;
   @media ${(props) => props.theme.mobile} {
-    background: #ff7272;
   }
   @media ${(props) => props.theme.tablet} {
-    background: #333;
   }
   @media ${(props) => props.theme.desktop} {
-    background: #999;
   }
 `;

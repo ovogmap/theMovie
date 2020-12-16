@@ -6,15 +6,13 @@ import Footer from "../Footer";
 const Layout = ({ children, isColor, isMobile }) => {
   console.log(isMobile);
   return (
-    <>
-      <Container>
-        <Wrap>
-          <Navbal isColor={isColor} />
-          {children}
-          {isMobile && <Footer />}
-        </Wrap>
-      </Container>
-    </>
+    <Container>
+      <Wrap>
+        <Navbal isColor={isColor} />
+        {children}
+        {isMobile && <Footer />}
+      </Wrap>
+    </Container>
   );
 };
 export default Layout;
@@ -25,13 +23,14 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   min-width: 320px;
+  height: 100%;
 `;
 const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   position: relative;
   @media ${(props) => props.theme.desktop} {
     background: none;

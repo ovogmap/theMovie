@@ -14,6 +14,7 @@ const INITIAL_STATE = {
     id: "",
     tagline: "",
     title: "",
+    poster_path: "",
   },
 };
 
@@ -33,6 +34,7 @@ export default function home(state = INITIAL_STATE, action) {
           id: action.data.id,
           tagline: action.data.tagline,
           title: action.data.title,
+          poster_path: action.data.poster_path,
         },
         error: null,
       };
